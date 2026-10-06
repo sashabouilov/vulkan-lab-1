@@ -1,0 +1,25 @@
+# Папки сборки
+build/
+build-debug/
+build-release/
+out/
+
+# Скомпилированные шейдеры
+*.spv
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# VS Code
+.vscode/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+
+# Системное
+Thumbs.db
+.DS_Store
