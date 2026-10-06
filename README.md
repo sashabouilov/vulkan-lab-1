@@ -1,66 +1,56 @@
-# 🌋 Vulkan Starter App
+# Лабораторная работа №1: Основы 3D-графики
 
-## Getting started
+**Вариант 4:** Усечённый правильный тетраэдр.
 
-You need C++ compiler, Vulkan SDK and CMake installed before you can build this project.
+Усечённый тетраэдр — полуправильный многогранник (тело Архимеда), получаемый отсечением углов правильного тетраэдра. Состоит из 12 вершин, 18 рёбер и 8 граней: 4 правильных треугольника и 4 правильных шестиугольника.
 
-This project uses C++20 standard and thus requires either of those compilers:
-- GCC 10.X
-- Clang 10
-- Microsoft Visual Studio 2019
+## Технологии
 
-This is officially tested on *Windows* and *GNU/Linux platforms*, no *macOS* support yet.
-If you have a working macOS solution of this code, consider submitting a PR so others
-can build this example code without a hassle!
+- **Vulkan** — графическое API
+- **GLFW** — создание окна и обработка ввода
+- **ImGui** — пользовательский интерфейс
+- **GLM** — линейная алгебра (матрицы преобразований)
+- **VMA** (VulkanMemoryAllocator) — управление памятью
+- **VkBootstrap** — упрощение инициализации Vulkan
 
-<ins>**1. Downloading the repository**</ins>
+## Что реализовано
 
-Start by cloning the repository with `git clone --depth 1 https://github.com/vladeemerr/vulkan-starter-app`
+### Основное задание
+- Построение усечённого правильного тетраэдра.
+- Отображение с учётом проекции и глубины (z-buffer).
 
-This repository does not contain any submodules, it utilizes CMake's `FetchContent` feature instead.
+### Дополнительные задания
 
-<ins>**2. Configuring the project**</ins>
+| № | Задание | Статус |
+|---|---------|--------|
+| 1 | Переключение ортографической / перспективной проекции через UI | ✅ |
+| 2 | Слайдеры позиции, поворота и масштаба фигуры | ✅ |
+| 3 | Анимация по круговой траектории с play/pause, скоростью и радиусом | ✅ |
+| 4 | Изменение цвета фигуры через `ColorEdit3` | ✅ |
+| 5 | Процедурный цвет вершин (зависит от локальных координат, умножается на цвет из UI) | ✅ |
+| 6 | Рисование нескольких объектов с использованием нескольких наборов дескрипторов | ❌ |
 
-Run either one of the CMake lines to download dependencies and configure the project:
+## Управление
+
+- **Projection** — переключение между ортографической и перспективной проекцией.
+- **Transform** — изменение позиции, поворота и масштаба.
+- **Animation** — включение/выключение анимации, настройка скорости и радиуса траектории.
+- **Color** — выбор основного цвета фигуры (умножается на процедурный цвет каждой вершины).
+
+## Требования
+
+- Компилятор C++20:
+  - MSVC (Visual Studio 2022/2026)
+  - GCC 10+
+  - Clang 10+
+- CMake 4.2+
+- Vulkan SDK (с утилитой `glslc`)
+- GLFW, ImGui, GLM, VMA, VkBootstrap — скачиваются автоматически через CMake FetchContent.
+
+## Сборка
+
+### Windows (MSVC)
 
 ```bash
-cmake --preset debug       # for GNU/Linux (GCC/Clang)
-cmake --preset msvc-debug  # for Windows (Visual Studio 2019)
-cmake --preset mingw-debug # for Windows (MinGW)
-```
-
-If you wish to build in `release` mode, change `debug` to `release`.
-
-If changes are made (added/removed files), or if you want to regenerate project files, rerun the command above.
-
-<ins>**3. Building**</ins>
-
-To build the project, use the line below. You are most likely using `debug` preset, so
-the directory that will eventually contain your build files is named `build-debug`.
-
-Likewise for `release` that directory will be named `build-release`
-
-Run one those commands, depending on which preset you chose:
-
-```bash
-cmake --build build-debug --parallel # for debug
-cmake --build build-release --parallel # for release
-```
-
-### Running
-
-`build-*` directory will contain the executable in one of the subdirectories after successful build.
-
-For `msvc-{debug|release}` builds output subdirectory is set to `Debug` or `Release` respectively.
-For other configurations output subdirectory is set to `vulkan-starter-app`.
-
-**Make sure your working directory is set to the project root!**
-Project root is where this README file resides. Otherwise, the
-code responsible for loading shaders or other resources from files will fail,
-because relative paths are used.
-
-### Compiling shaders
-
-`CMakeLists.txt` has a build recipe for compiling shader files
-along with an application. Look for a comment in this file to see
-how to compile your shaders.
+cmake --preset msvc-debug
+cmake --build build-debug --parallel
